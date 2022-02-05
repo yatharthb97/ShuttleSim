@@ -29,45 +29,72 @@ Modules:
 
 class Position:
 
-	pos_ss = [0, 1, 2, 3] # Position State Space
+	team_ss = (0, 1) # Team coordinate state space
 
-	def __init__(self):
-		self.pos = pos_ss[0]
 
-	def read(self):
-		return self.pos.pos
+	def __init__(self, team_id, x_len, y_len):
+		
+		self.team = team_id
+
+		self.x_ss = np.arange(x_len)
+		self.y_ss = np.arange(y_len)
+
+		self.xy = np.array([self.x_ss[0], self.y_ss[0]]) # x & y coordinates
+
+	def set_pos(self, x, y):
+		self.xy[0] = x
+		self.xy[1] = y
+
+
+	def get_pos(self):
+		return [self.team, *self.xy]
+
+	def rand_positions(self, n=2):
+		x_list = np.random.sample(self.x_ss, n)
+		y_list = np.random.sample(self.y_ss, n)
+		zipped = [list(pos) for pos in zip(x_list, y_list)]
+		return zipped
+
+	def is_valid(self):
+		return (self.team in self.team_ss) and (self.xy[0] in self.x_ss) and (self.xy[1] in self.y_ss)
 
 	def __repr__():
-		return f"[[{court_pos} - {side_pos} ]]"
+		return f"[[{self.team} - {self.xy} ]]"
 
+
+class ShuttlePosition(Position):
+
+	def __init__(self, team_id, x_len, y_len):
+		super().__init__(team_id, x_len, y_len)
+
+	def set_team(self, new_team):
+		team = new_team
 
 
 
 class Shuttle:
 
-	# Why tupple?
-	pos_ss = (0, 1, 2, 3) # Position State Space
-	activity_ss = (False, True) # Active or inactive
-
-
 	def __init__(self):
-		self.pos = Position() # Possible positions → [0, 1, 2, 3]
-
-		self.activity = self.activity_ss[0]
-
+		self.pos = ShuttlePosition()
+		self.last_team = self.pos.team_ss[0]
 
 	# For Completeness only ↓
 	def toggle(self):
 		"""	
 		Activity state of Shuttle is toggled.
 		"""
-		self.activity = not self.activity
+		self.last_team = self.pos.team
+		self.pos.team = not self.pos.team
 
-	def maintained(self):
+	def maintain(self):
 		"""
 		Activity state of Shuttle is maintained.
 		"""
-		pass
+		self.last_team = self.pos.team
+
+	def activity(self):
+		return self.pos.team==self.last_team
+
 
 
 class Player:
