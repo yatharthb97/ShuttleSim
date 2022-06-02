@@ -2,27 +2,10 @@
 
 
 """
-Objects in study:
-	• Game : A complete `n` point game (n=20)
-	• Rally : One complete cycle of returns
-	• 
-
-→ Agents:
-	• Shuttle : Represents a generic shuttle class
-	• Player : Represents the palyer and racket which is assumed to be a common entity.
-			   (Energy Source) defined by state space `Ability` and  `Position`.
-	• 
-
-
-Modules:
-	• Rules : Set of functions that select the agents
-
-
-
-• Coordinate system for side -> n X m matrix
-• Write Rule class 
-
-• 
+Todo:
+1. Finish documentation
+2. Update terminology in ubiquitious language document
+3. Change Position.rand_positions() to a pure numpy function
 """
 
 
@@ -58,6 +41,16 @@ class Position:
 	def is_valid(self):
 		return (self.team in self.team_ss) and (self.xy[0] in self.x_ss) and (self.xy[1] in self.y_ss)
 
+
+	def disp(self):
+		"""
+		Calculates the inter-team or (inter-court) displacement.
+		"""
+		pass
+
+	def is_same_side(self, other_pos):
+		return self.team == other_pos.team
+
 	def __repr__():
 		return f"[[{self.team} - {self.xy} ]]"
 
@@ -70,6 +63,14 @@ class ShuttlePosition(Position):
 	def set_team(self, new_team):
 		team = new_team
 
+	def intra_disp(self):
+		"""
+		Calculates the intra-court displacement - which occurs across the net.
+		"""
+		if not self.is_same_team():
+			pass
+		else:
+			return self.disp(other_pos)
 
 
 class Shuttle:
