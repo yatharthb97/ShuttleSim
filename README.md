@@ -15,19 +15,16 @@ A badminton toy-model simulator written in python.
 
 ---
 
-**Development Plan:**
+**Maintainance Plan:**
 
-| Developer     | Assignment 1   | Assignment 2        | Assignment 3                   |
-| ------------- | -------------- | ------------------- | ------------------------------ |
-| Yatharth      | `class Player` | `class Coordinates` | `class Rule`                   |
-| Chandrasekhar | `class Team`   | `class Shuttle`     | Numpy Random Number Generation |
+| Player        | Assignment 1   | Assignment 2        |
+| ------------- | -------------- | ------------------- |
+| Yatharth      |  `class Player` | `class Court` |
+| Chandrasekhar | Coordinates & Time | `class Battery` |
 
 **Completed things:**
 
-| Developer | Assignment |
-| --------- | ---------- |
-|           |            |
-|           |            |
+
 
 ## Introduction
 
@@ -182,4 +179,36 @@ The event tagging may be done using the `MetaData` object that will soon include
 #### File Generation
 
 File name generation should be done using the `DataStore.new(filename)` function. `DataStore` class: https://gist.github.com/yatharthb97/a0b3a2665f065d982e7b0e2b2dd274b0 .
+
+
+
+```python
+def new_rally():
+		# → It assigns service
+		self.init_players() #Assume → Players hold the correct quadrants
+       
+		# → It generates new coordinates
+        fourquads = self.gen_coords() # Assign Precise Co-ordinates within the quadrants
+		
+        # Place Shuttle
+        self.shuttle.translate_to(self.server.pos())
+        
+		# → It calculates "norm" for the two players. min() → assigns player
+		# → 
+		# → Player.step(new_pos, rnd_) ==> Player return success status back to court
+		# → Either the court continues the ralley
+		# → Or assigns points and prepes new ralley
+```
+
+
+
+```mermaid
+flowchart LR;
+Start(("new_rally")) --> init_players
+	subgraph coordinates
+		init_players -.- CorrectQuadrants
+		init_players --> gen_coords -.- I2["Precise Coordinate in the<br> respective quadrant"]
+	end
+
+```
 

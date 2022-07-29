@@ -1,6 +1,8 @@
 
 class Time:
-
+	"""
+	Class that descripes Time-value.
+	"""
 	def __init__(self, rally, shot):
 		"""
 		Init takes a rally and shot time. Ideally integers.
@@ -8,8 +10,17 @@ class Time:
 		self.t_rally = rally
 		self.t_shot = shot
 
+	def __str__(self):
+		"""
+		Print the two time values as CSV.
+		"""
+		return "{}, {}".format(self.t_rally, self.t_shot)
+
 	def __repr__(self):
-		return f"[[{self.t_rally}-{self.shot}]]"
+		"""
+		Representation of time.
+		"""
+		return "[time[{}-{}]]".format(self.t_rally, self.t_shot)
 
 
 
@@ -40,6 +51,9 @@ class Position:
 	def get_xy(self):
 		return self.xy
 
+	def __call__(self):
+		return get_xy()
+
 
 	def RandPositions(self, n=2):
 		"""
@@ -65,6 +79,8 @@ class Position:
 	def RandRightPosition(self):
 		pass
 
+	def 
+
 
 	def is_valid(self):
 		return (self.team in self.team_ss) and (self.xy[0] in self.x_ss) and (self.xy[1] in self.y_ss)
@@ -76,11 +92,12 @@ class Position:
 		"""
 		pass
 
-	def is_same_side(self, other_pos):
+	def is_same_team(self, other_pos):
 		return self.team == other_pos.team
 
+
 	def __repr__():
-		return f"[[{self.team} - {self.xy} ]]"
+		return f"[[{self.team} - {self.xy}]]"
 
 
 class ShuttlePosition(Position):
