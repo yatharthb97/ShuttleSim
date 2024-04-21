@@ -2,6 +2,29 @@
 
 A badminton toy-model simulator written in python.
 
+Todo:
+1. **Think** about court coordinates
+2. **Research** other racket sport studies/models. (Good and missing parameter values)
+
+
+## Revival
+
+Player: 
+Player dir alignmnet angle - [±90º] : transition: 1/alignmnet_angle
+Battery: the energy content left in player.
+Ability: [hit_prob, disp_len, f_theta, b_theta] - half-theta = opening angle of the shot.
+
+The ability function is a guassian where mean = f(hit_prob, battery, ), and the std_dev = f(disp_len, f_theta, b_theta).
+
+
+
+- Other player shoots (ability 2) -> is purely geometric and random.
+- Incoming shot -> within the coordinate system
+- Player is in player_state and the an alignment line is defined. the incoming shot is rotated in the line of signht from alignmnet line.
+- Player has an Ability and the battery and he has to pick the shot at some position.
+- Based one the ability function (guassian), he either picks it up or not. (ability 1)
+- If yes - it goes on.
+
 <u>Notes for development:</u>
 
 1. Use an agent based approach, where individual entities interact with each other.
